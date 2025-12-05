@@ -8,40 +8,41 @@ import ProductMockup from '@/components/ProductMockup';
 import HowItWorks from '@/components/HowItWorks';
 import DashboardPreview from '@/components/DashboardPreview';
 import WalletSimulator from '@/components/WalletSimulator';
+import { Icons } from '@/lib/icons';
 
 export default function Home() {
   const { isConnected } = useAccount();
 
   const features = [
     {
-      icon: '⛓️',
+      icon: 'Chain',
       title: 'Built Onchain',
-      description: 'Smart contracts handle payments. Your money, your control.',
+      description: 'Smart contracts handle payments. Full transparency and control.',
     },
     {
-      icon: '💰',
+      icon: 'Dollar',
       title: 'Start at $0.01',
       description: 'Set your own price. As low as one cent per month.',
     },
     {
-      icon: '🚀',
+      icon: 'Rocket',
       title: 'Launch in Minutes',
-      description: 'Connect wallet, set price, share link. That\'s it.',
+      description: 'Connect wallet, set price, share link. Done.',
     },
     {
-      icon: '🔓',
+      icon: 'Unlock',
       title: 'No Lock-ins',
-      description: 'Users can cancel anytime. You keep what you earned.',
+      description: 'Subscribers can cancel anytime. You keep what you earned.',
     },
     {
-      icon: '📈',
+      icon: 'TrendingUp',
       title: 'Track Everything',
-      description: 'See subscribers, earnings, and growth in real-time.',
+      description: 'Monitor subscribers, earnings, and growth in real-time.',
     },
     {
-      icon: '⚡',
-      title: 'Instant Access',
-      description: 'Withdraw your earnings anytime. Zero waiting.',
+      icon: 'Zap',
+      title: 'Instant Withdrawals',
+      description: 'Access your earnings anytime. No waiting periods.',
     },
   ];
 
@@ -124,10 +125,12 @@ export default function Home() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 }}
-                    className="flex items-center gap-2 px-6 py-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800"
+                    className="flex items-center gap-3 px-6 py-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-800"
                   >
-                    <span>👆</span>
-                    <span className="text-sm font-medium">Connect wallet to get started</span>
+                    <div className="text-blue-600">
+                      <Icons.ArrowRight />
+                    </div>
+                    <span className="text-sm font-semibold">Connect your wallet above to get started</span>
                   </motion.div>
                 )}
               </div>
@@ -179,21 +182,26 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300"
-              >
-                <div className="text-4xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-bold text-secondary mb-2">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed text-sm">{feature.description}</p>
-              </motion.div>
-            ))}
+            {features.map((feature, index) => {
+              const IconComponent = Icons[feature.icon as keyof typeof Icons];
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -4, scale: 1.01 }}
+                  className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-250"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 text-primary">
+                    <IconComponent />
+                  </div>
+                  <h3 className="text-xl font-bold text-secondary mb-2">{feature.title}</h3>
+                  <p className="text-gray-600 leading-relaxed text-sm">{feature.description}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -297,7 +305,10 @@ export default function Home() {
               viewport={{ once: true }}
             >
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-100 text-green-700 rounded-full mb-6 text-sm font-semibold">
-                💡 Real Use Case
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" />
+                </svg>
+                Case Study
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-6">
                 "I charged $0.03/month for my newsletter. Got 2,000 subscribers."

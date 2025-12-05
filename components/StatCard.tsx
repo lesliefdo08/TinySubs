@@ -40,15 +40,15 @@ export default function StatCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -4 }}
-      className={`bg-gradient-to-br ${colorClasses[color]} rounded-xl p-6 shadow-xl border border-slate-700/50`}
+      className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-250 border border-gray-200"
     >
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
-          <p className="text-white/80 text-sm font-medium mb-2">{title}</p>
-          <p className="text-3xl font-bold text-white">{value}</p>
+          <p className="text-gray-600 text-sm font-medium mb-2">{title}</p>
+          <p className="text-3xl font-bold text-secondary">{value}</p>
         </div>
         {icon && (
-          <div className={`p-3 rounded-lg ${iconColorClasses[color]}`}>
+          <div className="p-3 rounded-lg bg-primary/10 text-primary">
             {icon}
           </div>
         )}
@@ -58,12 +58,12 @@ export default function StatCard({
         <div className="flex items-center gap-1">
           <span
             className={`text-xs font-semibold ${
-              trend.isPositive ? 'text-green-400' : 'text-red-400'
+              trend.isPositive ? 'text-green-600' : 'text-red-600'
             }`}
           >
             {trend.isPositive ? '↑' : '↓'} {trend.value}
           </span>
-          <span className="text-xs text-white/60">vs last month</span>
+          <span className="text-xs text-gray-500">vs last month</span>
         </div>
       )}
     </motion.div>

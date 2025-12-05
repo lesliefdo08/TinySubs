@@ -10,6 +10,7 @@ import StatCard from '@/components/StatCard';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import EmptyState from '@/components/EmptyState';
 import { TINYSUBS_ABI, CONTRACT_ADDRESS } from '@/lib/contract';
+import { Icons } from '@/lib/icons';
 
 interface Subscription {
   creator: string;
@@ -54,7 +55,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success('Action completed successfully!');
+      toast.success('Transaction complete');
       fetchSubscriptions();
     }
   }, [isSuccess]);
@@ -120,11 +121,11 @@ export default function DashboardPage() {
 
   if (!isConnected) {
     return (
-      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4">
+      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 bg-background">
         <EmptyState
-          icon={<span className="text-6xl">🔐</span>}
+          icon={<div className="text-primary w-16 h-16"><Icons.Lock /></div>}
           title="Connect Your Wallet"
-          description="Please connect your wallet to view your subscription dashboard."
+          description="Connect your wallet to view and manage your subscriptions."
         />
       </div>
     );
@@ -136,7 +137,7 @@ export default function DashboardPage() {
   );
 
   return (
-    <div className="min-h-[calc(100vh-64px)] py-12 px-4">
+    <div className="min-h-[calc(100vh-64px)] py-12 px-4 bg-background">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -144,10 +145,10 @@ export default function DashboardPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
+          <h1 className="text-4xl md:text-5xl font-bold text-secondary mb-2">
             Your <span className="gradient-text">Dashboard</span>
           </h1>
-          <p className="text-xl text-gray-400">
+          <p className="text-xl text-gray-600">
             Manage your subscriptions and track your spending
           </p>
         </motion.div>
@@ -157,19 +158,19 @@ export default function DashboardPage() {
           <StatCard
             title="Active Subscriptions"
             value={activeSubscriptions.length}
-            icon={<span className="text-2xl">📊</span>}
+            icon={<Icons.Activity />}
             color="purple"
           />
           <StatCard
             title="Total Spent"
             value={`${totalSpent.toFixed(4)} ETH`}
-            icon={<span className="text-2xl">💰</span>}
+            icon={<Icons.Dollar />}
             color="blue"
           />
           <StatCard
             title="This Month"
             value={`${(totalSpent * 0.3).toFixed(4)} ETH`}
-            icon={<span className="text-2xl">📈</span>}
+            icon={<Icons.TrendingUp />}
             color="green"
           />
         </div>

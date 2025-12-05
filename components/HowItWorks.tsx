@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Icons } from '@/lib/icons';
 
 export default function HowItWorks() {
   const steps = [
@@ -8,19 +9,19 @@ export default function HowItWorks() {
       number: '1',
       title: 'Connect Your Wallet',
       description: 'Link your Web3 wallet in seconds. Works with MetaMask, WalletConnect, and more.',
-      icon: '🔗',
+      icon: 'Chain',
     },
     {
       number: '2',
       title: 'Set Your Price',
       description: 'Choose your monthly rate. Start as low as $0.01 per subscriber.',
-      icon: '💰',
+      icon: 'Dollar',
     },
     {
       number: '3',
       title: 'Start Earning',
       description: 'Share your link and get paid automatically. Withdraw anytime, no waiting.',
-      icon: '🚀',
+      icon: 'Rocket',
     },
   ];
 
@@ -45,7 +46,9 @@ export default function HowItWorks() {
             </div>
 
             {/* Icon */}
-            <div className="text-6xl mb-6 mt-4">{step.icon}</div>
+            <div className="w-16 h-16 mb-6 mt-4 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+              {Icons[step.icon as keyof typeof Icons]?.() || step.icon}
+            </div>
 
             {/* Content */}
             <h3 className="text-xl font-bold text-secondary mb-3">{step.title}</h3>

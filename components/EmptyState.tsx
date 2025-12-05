@@ -21,16 +21,16 @@ export default function EmptyState({ icon, title, description, action }: EmptySt
       className="flex flex-col items-center justify-center py-16 px-4"
     >
       {icon && (
-        <div className="mb-6 p-4 bg-slate-800 rounded-full">
+        <div className="mb-6 p-6 bg-primary/10 rounded-2xl">
           {icon}
         </div>
       )}
-      <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
-      <p className="text-gray-400 text-center max-w-md mb-6">{description}</p>
+      <h3 className="text-2xl font-bold text-secondary mb-2">{title}</h3>
+      <p className="text-gray-600 text-center max-w-md mb-6">{description}</p>
       {action && (
         <button
           onClick={action.onClick}
-          className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-200"
+          className="px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primaryDark transition-all duration-250 shadow-md hover:shadow-lg"
         >
           {action.label}
         </button>

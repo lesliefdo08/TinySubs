@@ -28,30 +28,32 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+          <div className="min-h-screen bg-background">
             <Navbar />
-            <main className="relative z-10">
+            <main>
               {children}
             </main>
             <Toaster
               position="bottom-right"
               toastOptions={{
-                duration: 4000,
+                duration: 3000,
                 style: {
-                  background: '#1f2937',
-                  color: '#fff',
-                  border: '1px solid #374151',
+                  background: '#FFFFFF',
+                  color: '#0C0C0C',
+                  border: '1px solid #E5E7EB',
+                  borderRadius: '12px',
+                  padding: '16px',
                 },
                 success: {
                   iconTheme: {
-                    primary: '#10b981',
-                    secondary: '#fff',
+                    primary: '#10B981',
+                    secondary: '#FFFFFF',
                   },
                 },
                 error: {
                   iconTheme: {
-                    primary: '#ef4444',
-                    secondary: '#fff',
+                    primary: '#EF4444',
+                    secondary: '#FFFFFF',
                   },
                 },
               }}

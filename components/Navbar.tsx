@@ -17,7 +17,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-slate-900/80 border-b border-slate-700/50">
+    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -44,10 +44,10 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-4 py-2 rounded-lg transition-all duration-200 ${
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   pathname === link.href
-                    ? 'bg-purple-600 text-white'
-                    : 'text-gray-300 hover:bg-slate-800 hover:text-white'
+                    ? 'bg-primary text-white'
+                    : 'text-gray-600 hover:text-primary hover:bg-gray-50'
                 }`}
               >
                 {link.label}
@@ -69,15 +69,15 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Navigation */}
-        <div className="md:hidden flex items-center justify-around pb-3">
+        <div className="md:hidden flex items-center justify-around pb-3 gap-2">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`px-3 py-1 rounded-lg text-sm transition-all duration-200 ${
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                 pathname === link.href
-                  ? 'bg-purple-600 text-white'
-                  : 'text-gray-300 hover:bg-slate-800 hover:text-white'
+                  ? 'bg-primary text-white'
+                  : 'text-gray-600 hover:text-primary hover:bg-gray-50'
               }`}
             >
               {link.label}

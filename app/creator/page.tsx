@@ -9,6 +9,7 @@ import StatCard from '@/components/StatCard';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import EmptyState from '@/components/EmptyState';
 import { TINYSUBS_ABI, CONTRACT_ADDRESS } from '@/lib/contract';
+import { Icons } from '@/lib/icons';
 
 interface CreatorPlan {
   planName: string;
@@ -60,7 +61,7 @@ export default function CreatorPage() {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success('Action completed successfully!');
+      toast.success('Transaction complete');
       refetchPlan();
       setShowRegisterForm(false);
       setFormData({ planName: '', description: '', pricePerMonth: '' });
@@ -76,7 +77,7 @@ export default function CreatorPage() {
     }
 
     if (!formData.planName || !formData.description || !formData.pricePerMonth) {
-      toast.error('Please fill in all fields');
+      toast.error('All fields are required');
       return;
     }
 
@@ -88,10 +89,10 @@ export default function CreatorPage() {
         functionName: 'registerCreator',
         args: [formData.planName, formData.description, price, zeroAddress],
       });
-      toast.loading('Registering as creator...');
+      toast.loading('Processing transaction...');
     } catch (error) {
       console.error('Registration error:', error);
-      toast.error('Failed to register. Please check your input.');
+      toast.error('Transaction failed. Check your wallet and try again.');
     }
   };
 
@@ -107,10 +108,10 @@ export default function CreatorPage() {
         abi: TINYSUBS_ABI,
         functionName: 'withdrawFunds',
       });
-      toast.loading('Withdrawing funds...');
+      toast.loading('Processing withdrawal...');
     } catch (error) {
       console.error('Withdrawal error:', error);
-      toast.error('Failed to withdraw funds');
+      toast.error('Withdrawal failed. Please try again.');
     }
   };
 
@@ -135,11 +136,11 @@ export default function CreatorPage() {
 
   if (!isConnected) {
     return (
-      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4">
+      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 bg-background">
         <EmptyState
-          icon={<span className="text-6xl">🔐</span>}
+          icon={<div className="text-primary"><Icons.Lock /></div>}
           title="Connect Your Wallet"
-          description="Please connect your wallet to access the creator dashboard."
+          description="Connect your wallet to access the creator dashboard and start earning."
         />
       </div>
     );
@@ -159,18 +160,18 @@ export default function CreatorPage() {
   // If not a creator, show registration form
   if (!isCreator) {
     return (
-      <div className="min-h-[calc(100vh-64px)] py-12 px-4">
+      <div className="min-h-[calc(100vh-64px)] py-12 px-4 bg-background">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-secondary mb-4">
               Become a <span className="gradient-text">Creator</span>
             </h1>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Start earning from your content with tiny recurring subscriptions
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Register your subscription plan and start earning from your content.
             </p>
           </motion.div>
 
@@ -231,41 +232,41 @@ export default function CreatorPage() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               onSubmit={handleRegister}
-              className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700"
+              className="bg-white rounded-2xl p-8 border border-gray-200 shadow-lg"
             >
-              <h2 className="text-2xl font-bold text-white mb-6">Create Your Plan</h2>
+              <h2 className="text-2xl font-bold text-secondary mb-6">Create Your Plan</h2>
 
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Plan Name *
                   </label>
                   <input
                     type="text"
                     value={formData.planName}
                     onChange={(e) => setFormData({ ...formData, planName: e.target.value })}
-                    placeholder="e.g., Premium Content"
-                    className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    placeholder="Premium Content"
+                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-secondary placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Description *
                   </label>
                   <textarea
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    placeholder="Describe what subscribers will get..."
+                    placeholder="Describe what subscribers will receive"
                     rows={4}
-                    className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-secondary placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Price per Month (ETH) *
                   </label>
                   <input
@@ -274,11 +275,11 @@ export default function CreatorPage() {
                     value={formData.pricePerMonth}
                     onChange={(e) => setFormData({ ...formData, pricePerMonth: e.target.value })}
                     placeholder="0.01"
-                    className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-secondary placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                     required
                   />
-                  <p className="mt-2 text-sm text-gray-400">
-                    Recommended: 0.01 - 0.05 ETH for micro-subscriptions
+                  <p className="mt-2 text-sm text-gray-500">
+                    Recommended: 0.01 - 0.05 ETH per month
                   </p>
                 </div>
               </div>
@@ -287,7 +288,7 @@ export default function CreatorPage() {
                 <button
                   type="button"
                   onClick={() => setShowRegisterForm(false)}
-                  className="flex-1 py-3 bg-slate-700 text-white rounded-lg font-semibold hover:bg-slate-600 transition-all duration-200"
+                  className="flex-1 py-3 bg-gray-200 text-secondary rounded-lg font-semibold hover:bg-gray-300 transition-all duration-250"
                   disabled={isPending || isConfirming}
                 >
                   Cancel
@@ -295,7 +296,7 @@ export default function CreatorPage() {
                 <button
                   type="submit"
                   disabled={isPending || isConfirming}
-                  className="flex-1 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primaryDark transition-all duration-250 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
                 >
                   {isPending || isConfirming ? 'Processing...' : 'Create Plan'}
                 </button>
@@ -309,7 +310,7 @@ export default function CreatorPage() {
 
   // Creator dashboard
   return (
-    <div className="min-h-[calc(100vh-64px)] py-12 px-4">
+    <div className="min-h-[calc(100vh-64px)] py-12 px-4 bg-background">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -318,7 +319,7 @@ export default function CreatorPage() {
           className="mb-12"
         >
           <div className="flex items-center justify-between mb-2">
-            <h1 className="text-4xl md:text-5xl font-bold text-white">
+            <h1 className="text-4xl md:text-5xl font-bold text-secondary">
               Creator <span className="gradient-text">Dashboard</span>
             </h1>
             <div className="flex gap-3">
@@ -342,8 +343,8 @@ export default function CreatorPage() {
               </button>
             </div>
           </div>
-          <p className="text-xl text-gray-400">
-            Manage your subscription plan and track your earnings
+          <p className="text-xl text-gray-600">
+            Manage your subscription plan and track earnings.
           </p>
         </motion.div>
 
@@ -380,17 +381,17 @@ export default function CreatorPage() {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700"
+            className="bg-white rounded-2xl p-6 border border-gray-200 shadow-md"
           >
-            <h2 className="text-2xl font-bold text-white mb-6">Plan Details</h2>
+            <h2 className="text-2xl font-bold text-secondary mb-6">Plan Details</h2>
             <div className="space-y-4">
               <div>
-                <p className="text-sm text-gray-400 mb-1">Plan Name</p>
-                <p className="text-xl font-semibold text-white">{plan?.planName}</p>
+                <p className="text-sm text-gray-500 mb-1">Plan Name</p>
+                <p className="text-xl font-semibold text-secondary">{plan?.planName}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-400 mb-1">Description</p>
-                <p className="text-gray-300">{plan?.description}</p>
+                <p className="text-sm text-gray-500 mb-1">Description</p>
+                <p className="text-gray-700">{plan?.description}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-400 mb-1">Price per Month</p>
@@ -404,16 +405,18 @@ export default function CreatorPage() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700"
+            className="bg-white rounded-2xl p-6 border border-gray-200 shadow-md"
           >
-            <h2 className="text-2xl font-bold text-white mb-6">
+            <h2 className="text-2xl font-bold text-secondary mb-6">
               Subscribers ({subscriberList.length})
             </h2>
             {subscriberList.length === 0 ? (
               <div className="text-center py-8">
-                <span className="text-4xl mb-2 block">👋</span>
-                <p className="text-gray-400">No subscribers yet</p>
-                <p className="text-sm text-gray-500 mt-1">Share your plan to get started!</p>
+                <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                  <Icons.Users />
+                </div>
+                <p className="text-gray-600">No subscribers yet</p>
+                <p className="text-sm text-gray-500 mt-1">Share your plan to get started</p>
               </div>
             ) : (
               <div className="space-y-3 max-h-[400px] overflow-y-auto">
