@@ -828,4 +828,4 @@ export const TINYSUBS_ABI = [
   }
 ] as const;
 
-export const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}` || '0x';
+export const CONTRACT_ADDRESS = (process.env.NEXT_PUBLIC_CONTRACT_ADDRESS as `0x${string}`) || '0x5FbDB2315678afecb367f032d93F642f64180aa3';

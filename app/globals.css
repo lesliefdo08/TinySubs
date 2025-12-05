@@ -18,12 +18,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #FAFAFF;
 }
 
 @layer utilities {
@@ -94,4 +89,22 @@ body {
 .card-hover:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Skeleton loader */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.5s ease-in-out infinite;
+}
+
+/* Button hover effects */
+.btn-primary {
+  @apply bg-primary text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+  @apply hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0;
+}
+
+.btn-secondary {
+  @apply bg-white text-secondary border border-gray-200 px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+  @apply hover:border-primary hover:text-primary hover:shadow-md active:scale-95;
 }

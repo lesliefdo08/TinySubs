@@ -1,16 +1,16 @@
-import { ethers } from "hardhat";
+import hre from "hardhat";
 
 async function main() {
   console.log("🚀 Deploying TinySubs contract...");
 
-  const [deployer] = await ethers.getSigners();
+  const [deployer] = await hre.ethers.getSigners();
   console.log("📝 Deploying with account:", deployer.address);
 
-  const balance = await ethers.provider.getBalance(deployer.address);
-  console.log("💰 Account balance:", ethers.formatEther(balance), "ETH");
+  const balance = await hre.ethers.provider.getBalance(deployer.address);
+  console.log("💰 Account balance:", hre.ethers.formatEther(balance), "ETH");
 
   // Deploy the contract
-  const TinySubsFactory = await ethers.getContractFactory("TinySubs");
+  const TinySubsFactory = await hre.ethers.getContractFactory("TinySubs");
   const tinySubs = await TinySubsFactory.deploy();
   
   await tinySubs.waitForDeployment();
@@ -20,12 +20,12 @@ async function main() {
   console.log("🔍 Transaction hash:", tinySubs.deploymentTransaction()?.hash);
 
   // Log deployment info
-  console.log("\n📋 Deployment Summary:");
+  console.log("📋 Deployment Summary:");
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
   console.log("Contract Address:", address);
   console.log("Deployer:", deployer.address);
-  console.log("Network:", (await ethers.provider.getNetwork()).name);
-  console.log("Chain ID:", (await ethers.provider.getNetwork()).chainId);
+  console.log("Network:", (await hre.ethers.provider.getNetwork()).name);
+  console.log("Chain ID:", (await hre.ethers.provider.getNetwork()).chainId);
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
   // Verify contract settings

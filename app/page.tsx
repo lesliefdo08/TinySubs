@@ -3,40 +3,44 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useAccount } from 'wagmi';
+import ProductMockup from '@/components/ProductMockup';
+import HowItWorks from '@/components/HowItWorks';
+import DashboardPreview from '@/components/DashboardPreview';
+import WalletSimulator from '@/components/WalletSimulator';
 
 export default function Home() {
   const { isConnected } = useAccount();
 
   const features = [
     {
-      icon: '🔐',
-      title: 'Fully Onchain',
-      description: 'All subscription logic handled by smart contracts. No intermediaries.',
+      icon: '⛓️',
+      title: 'Built Onchain',
+      description: 'Smart contracts handle payments. Your money, your control.',
     },
     {
-      icon: '💸',
-      title: 'Micro Payments',
-      description: 'Support for tiny recurring payments starting from ₹1 / $0.01 per month.',
+      icon: '💰',
+      title: 'Start at $0.01',
+      description: 'Set your own price. As low as one cent per month.',
     },
     {
-      icon: '🎨',
-      title: 'Creator First',
-      description: 'Easy setup for creators. Get started in minutes with just a wallet.',
+      icon: '🚀',
+      title: 'Launch in Minutes',
+      description: 'Connect wallet, set price, share link. That\'s it.',
     },
     {
-      icon: '🔄',
-      title: 'Cancel Anytime',
-      description: 'Subscribers have full control. No lock-in periods or hidden fees.',
+      icon: '🔓',
+      title: 'No Lock-ins',
+      description: 'Users can cancel anytime. You keep what you earned.',
     },
     {
-      icon: '📊',
-      title: 'Real-time Analytics',
-      description: 'Track subscribers, earnings, and growth with live dashboards.',
+      icon: '📈',
+      title: 'Track Everything',
+      description: 'See subscribers, earnings, and growth in real-time.',
     },
     {
       icon: '⚡',
-      title: 'Instant Withdrawals',
-      description: 'Access your earnings immediately. No waiting periods.',
+      title: 'Instant Access',
+      description: 'Withdraw your earnings anytime. Zero waiting.',
     },
   ];
 
@@ -56,147 +60,145 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative pt-20 pb-32 px-4 overflow-hidden">
-        {/* Animated background gradient */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-purple-600/20 rounded-full blur-3xl animate-pulse-slow" />
-          <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-pink-600/20 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
-        </div>
-
-        <div className="relative max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            {/* Badge */}
+      <section className="relative pt-16 pb-20 px-4 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Content */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full mb-8"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="space-y-6"
             >
-              <span className="text-purple-400 text-sm font-semibold">🚀 Built on Base Testnet</span>
+              {/* Badge */}
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-full"
+              >
+                <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                <span className="text-primary text-sm font-semibold">Live on Base Network</span>
+              </motion.div>
+
+              {/* Headline */}
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-secondary leading-tight">
+                Onchain Subscriptions
+                <br />
+                <span className="text-primary">Starting at $0.01</span>
+              </h1>
+
+              {/* Subheading */}
+              <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-xl">
+                Enable micro-subscriptions for your content. Built for creators who want fair revenue without platform fees eating their earnings.
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                {isConnected ? (
+                  <>
+                    <Link href="/creator">
+                      <motion.button
+                        whileHover={{ scale: 1.02, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="px-8 py-4 bg-primary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                      >
+                        Start Creating
+                      </motion.button>
+                    </Link>
+                    <Link href="/discover">
+                      <motion.button
+                        whileHover={{ scale: 1.02, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="px-8 py-4 bg-white text-secondary border border-gray-200 rounded-xl font-semibold hover:border-primary hover:text-primary transition-all duration-300"
+                      >
+                        Browse Creators
+                      </motion.button>
+                    </Link>
+                  </>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="flex items-center gap-2 px-6 py-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800"
+                  >
+                    <span>👆</span>
+                    <span className="text-sm font-medium">Connect wallet to get started</span>
+                  </motion.div>
+                )}
+              </div>
+
+              {/* Quick Stats */}
+              <div className="flex items-center gap-8 pt-6 text-sm">
+                <div>
+                  <p className="text-2xl font-bold text-secondary">1.2K+</p>
+                  <p className="text-gray-500">Active Creators</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-secondary">$15K+</p>
+                  <p className="text-gray-500">Paid Out</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-secondary">98%</p>
+                  <p className="text-gray-500">To Creators</p>
+                </div>
+              </div>
             </motion.div>
 
-            {/* Main Heading */}
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-              Frictionless Onchain
-              <br />
-              <span className="gradient-text">Micro-Subscriptions</span>
-            </h1>
-
-            {/* Subheading */}
-            <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
-              Let creators charge extremely small recurring payments using smart-contract-based streaming.
-              No middlemen. No fees. Just pure creator economy.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              {isConnected ? (
-                <>
-                  <Link href="/discover">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold text-lg shadow-xl hover:shadow-purple-500/50 transition-all duration-200"
-                    >
-                      Discover Creators
-                    </motion.button>
-                  </Link>
-                  <Link href="/creator">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-8 py-4 bg-slate-800 text-white rounded-xl font-semibold text-lg border border-slate-700 hover:bg-slate-700 transition-all duration-200"
-                    >
-                      Become a Creator
-                    </motion.button>
-                  </Link>
-                </>
-              ) : (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                  className="text-gray-400"
-                >
-                  👆 Connect your wallet to get started
-                </motion.div>
-              )}
-            </div>
-
-            {/* Stats */}
+            {/* Right: Product Mockup */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50">
-                <p className="text-4xl font-bold gradient-text mb-2">$0.01+</p>
-                <p className="text-gray-400">Minimum subscription</p>
-              </div>
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50">
-                <p className="text-4xl font-bold gradient-text mb-2">2.5%</p>
-                <p className="text-gray-400">Platform fee only</p>
-              </div>
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50">
-                <p className="text-4xl font-bold gradient-text mb-2">0s</p>
-                <p className="text-gray-400">Withdrawal delay</p>
-              </div>
+              <ProductMockup />
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 px-4 bg-slate-900/50">
+      {/* Why TinySubs Section */}
+      <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Why Choose TinySubs?
+            <h2 className="text-4xl md:text-5xl font-bold text-secondary mb-4">
+              Why TinySubs?
             </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              The most creator-friendly subscription platform in Web3
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Fair pricing. True ownership. Built for the onchain economy.
             </p>
           </motion.div>
 
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                variants={itemVariants}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700 shadow-xl"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300"
               >
-                <div className="text-5xl mb-4">{feature.icon}</div>
-                <h3 className="text-2xl font-bold text-white mb-3">{feature.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{feature.description}</p>
+                <div className="text-4xl mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-bold text-secondary mb-2">{feature.title}</h3>
+                <p className="text-gray-600 leading-relaxed text-sm">{feature.description}</p>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 bg-background">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -204,97 +206,247 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-secondary mb-4">
               How It Works
             </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Get started in three simple steps
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Three steps to start earning onchain
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                step: '01',
-                title: 'Connect Wallet',
-                description: 'Connect your Web3 wallet using MetaMask or any compatible wallet.',
-              },
-              {
-                step: '02',
-                title: 'Create or Subscribe',
-                description: 'Creators register plans. Subscribers discover and subscribe to creators.',
-              },
-              {
-                step: '03',
-                title: 'Earn or Enjoy',
-                description: 'Creators withdraw earnings anytime. Subscribers access exclusive content.',
-              },
-            ].map((item, index) => (
+          <HowItWorks />
+        </div>
+      </section>
+
+      {/* Dashboard Preview Section */}
+      <section className="py-20 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-secondary mb-4">
+              Your Creator Dashboard
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Track everything in real-time. No spreadsheets needed.
+            </p>
+          </motion.div>
+
+          <DashboardPreview />
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section className="py-20 px-4 bg-gradient-to-br from-primary/5 to-purple-500/5">
+        <div className="max-w-5xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-secondary mb-6">
+              Simple, Fair Pricing
+            </h2>
+            <p className="text-xl text-gray-600 mb-12">
+              We only succeed when you succeed
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                className="relative"
+                whileHover={{ y: -5 }}
+                className="bg-white rounded-2xl p-8 border border-gray-200 shadow-lg"
               >
-                <div className="bg-gradient-to-br from-purple-600 to-pink-600 text-white rounded-2xl p-8">
-                  <div className="text-6xl font-bold opacity-20 mb-4">{item.step}</div>
-                  <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
-                  <p className="text-purple-100">{item.description}</p>
-                </div>
-                {index < 2 && (
-                  <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-4xl text-purple-500">
-                    →
-                  </div>
-                )}
+                <div className="text-5xl font-bold text-primary mb-2">2.5%</div>
+                <div className="text-lg font-semibold text-secondary mb-3">Platform Fee</div>
+                <p className="text-gray-600 text-sm">Industry-low fee. Most platforms charge 10-30%</p>
               </motion.div>
-            ))}
+
+              <motion.div
+                whileHover={{ y: -5 }}
+                className="bg-white rounded-2xl p-8 border border-gray-200 shadow-lg"
+              >
+                <div className="text-5xl font-bold text-primary mb-2">$0.01</div>
+                <div className="text-lg font-semibold text-secondary mb-3">Minimum Price</div>
+                <p className="text-gray-600 text-sm">Set any price from one cent upwards</p>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ y: -5 }}
+                className="bg-white rounded-2xl p-8 border border-gray-200 shadow-lg"
+              >
+                <div className="text-5xl font-bold text-primary mb-2">0s</div>
+                <div className="text-lg font-semibold text-secondary mb-3">Withdrawal Time</div>
+                <p className="text-gray-600 text-sm">Access your funds instantly, anytime</p>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Real Use Case Section */}
+      <section className="py-20 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-100 text-green-700 rounded-full mb-6 text-sm font-semibold">
+                💡 Real Use Case
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-6">
+                "I charged $0.03/month for my newsletter. Got 2,000 subscribers."
+              </h2>
+              <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                Traditional platforms require minimum pricing of $5-10/month. With TinySubs, 
+                indie creators can charge micro-amounts and still build sustainable income.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                    <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-secondary">Lower barrier to entry</p>
+                    <p className="text-gray-600 text-sm">More people subscribe at lower prices</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                    <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-secondary">Build real community</p>
+                    <p className="text-gray-600 text-sm">Engaged subscribers, not just numbers</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                    <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-secondary">Sustainable income</p>
+                    <p className="text-gray-600 text-sm">2,000 × $0.03 = $60/month profit</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <WalletSimulator />
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 bg-gradient-to-br from-primary to-purple-600">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-12 text-center"
+          className="max-w-4xl mx-auto text-center text-white"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Ready to Get Started?
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Ready to Start Earning?
           </h2>
-          <p className="text-xl text-purple-100 mb-8">
-            Join the future of creator subscriptions on the blockchain
+          <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+            Join 1,200+ creators already earning with micro-subscriptions
           </p>
-          <Link href={isConnected ? '/discover' : '/'}>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-10 py-4 bg-white text-purple-600 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-200"
-            >
-              {isConnected ? 'Explore Now' : 'Connect Wallet to Start'}
-            </motion.button>
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href={isConnected ? '/creator' : '/'}>
+              <motion.button
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-10 py-4 bg-white text-primary rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+              >
+                {isConnected ? 'Launch Your Plan' : 'Connect Wallet'}
+              </motion.button>
+            </Link>
+            <Link href="/discover">
+              <motion.button
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white border border-white/20 rounded-xl font-bold text-lg hover:bg-white/20 transition-all duration-300"
+              >
+                Browse Creators
+              </motion.button>
+            </Link>
+          </div>
         </motion.div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 border-t border-slate-800">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">T</span>
+      <footer className="py-12 px-4 bg-secondary border-t border-gray-800">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {/* Brand */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-primary to-purple-600 rounded-xl flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">T</span>
+                </div>
+                <span className="text-xl font-bold text-white">TinySubs</span>
+              </div>
+              <p className="text-gray-400 text-sm">
+                Onchain micro-subscriptions for creators. Fair pricing, instant payouts.
+              </p>
             </div>
-            <span className="text-xl font-bold gradient-text">TinySubs</span>
+
+            {/* Links */}
+            <div>
+              <h4 className="text-white font-semibold mb-4">Product</h4>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li><Link href="/discover" className="hover:text-primary transition-colors">Browse Creators</Link></li>
+                <li><Link href="/creator" className="hover:text-primary transition-colors">Become a Creator</Link></li>
+                <li><Link href="/dashboard" className="hover:text-primary transition-colors">Dashboard</Link></li>
+              </ul>
+            </div>
+
+            {/* Credits */}
+            <div>
+              <h4 className="text-white font-semibold mb-4">Project</h4>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li>
+                  <a 
+                    href="https://github.com/lesliefdo08/TinySubs" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-primary transition-colors flex items-center gap-2"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                    </svg>
+                    GitHub
+                  </a>
+                </li>
+                <li className="text-gray-500 text-xs pt-2">
+                  Built with Next.js, Solidity & Base
+                </li>
+                <li className="text-gray-500 text-xs">
+                  Created by <a href="https://github.com/lesliefdo08" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">@lesliefdo08</a>
+                </li>
+              </ul>
+            </div>
           </div>
-          <p className="text-gray-400 mb-4">
-            Frictionless Onchain Micro-Subscriptions for Everything
-          </p>
-          <p className="text-gray-500 text-sm">
-            Built with ❤️ for BuildOnchain
-          </p>
+
+          <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+            <p>© 2025 TinySubs. Open source project for the onchain creator economy.</p>
+          </div>
         </div>
       </footer>
     </div>
