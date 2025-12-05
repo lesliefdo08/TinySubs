@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { motion } from 'framer-motion';
@@ -24,12 +25,16 @@ export default function Navbar() {
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center"
+              className="flex items-center gap-2"
             >
-              <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">T</span>
-              </div>
-              <span className="ml-2 text-xl font-bold gradient-text">TinySubs</span>
+              <Image
+                src="/logo.png"
+                alt="TinySubs Logo"
+                width={32}
+                height={32}
+                className="w-8 h-8 object-contain"
+              />
+              <span className="text-xl font-bold gradient-text">TinySubs</span>
             </motion.div>
           </Link>
 

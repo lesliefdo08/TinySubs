@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useAccount } from 'wagmi';
 import ProductMockup from '@/components/ProductMockup';
 import HowItWorks from '@/components/HowItWorks';
@@ -397,9 +398,13 @@ export default function Home() {
             {/* Brand */}
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary to-purple-600 rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">T</span>
-                </div>
+                <Image
+                  src="/logo.png"
+                  alt="TinySubs Logo"
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 object-contain"
+                />
                 <span className="text-xl font-bold text-white">TinySubs</span>
               </div>
               <p className="text-gray-400 text-sm">
