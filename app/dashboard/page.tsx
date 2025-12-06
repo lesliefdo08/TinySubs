@@ -123,7 +123,7 @@ export default function DashboardPage() {
 
   if (!isConnected) {
     return (
-      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 bg-background">
+      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4">
         <EmptyState
           icon={<div className="text-primary w-16 h-16"><Icons.Lock /></div>}
           title="Connect Your Wallet"
@@ -139,7 +139,7 @@ export default function DashboardPage() {
   );
 
   return (
-    <div className="min-h-[calc(100vh-64px)] py-12 px-4 bg-background">
+    <div className="min-h-[calc(100vh-64px)] py-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -147,10 +147,10 @@ export default function DashboardPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-secondary mb-2">
-            Your <span className="gradient-text">Dashboard</span>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
+            Your <span className="text-primary">Dashboard</span>
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-white/70">
             Manage your subscriptions and track your spending
           </p>
         </motion.div>

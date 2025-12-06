@@ -136,7 +136,7 @@ export default function CreatorPage() {
 
   if (!isConnected) {
     return (
-      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 bg-background">
+      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4">
         <EmptyState
           icon={<div className="text-primary"><Icons.Lock /></div>}
           title="Connect Your Wallet"
@@ -160,17 +160,17 @@ export default function CreatorPage() {
   // If not a creator, show registration form
   if (!isCreator) {
     return (
-      <div className="min-h-[calc(100vh-64px)] py-12 px-4 bg-background">
+      <div className="min-h-[calc(100vh-64px)] py-12 px-4">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-secondary mb-4">
-              Become a <span className="gradient-text">Creator</span>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              Become a <span className="text-primary">Creator</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-white/70 max-w-2xl mx-auto">
               Register your subscription plan and start earning from your content.
             </p>
           </motion.div>
@@ -182,7 +182,9 @@ export default function CreatorPage() {
               className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700"
             >
               <div className="text-center mb-8">
-                <div className="text-6xl mb-4">🎨</div>
+                <div className="w-16 h-16 mx-auto mb-4 bg-primary/20 rounded-2xl flex items-center justify-center text-primary">
+                  <Icons.Palette className="w-8 h-8" />
+                </div>
                 <h2 className="text-2xl font-bold text-white mb-2">Ready to Start?</h2>
                 <p className="text-gray-400">
                   Register your subscription plan and start building your community
@@ -191,28 +193,36 @@ export default function CreatorPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div className="bg-slate-800/50 rounded-xl p-6">
-                  <span className="text-3xl mb-3 block">💰</span>
+                  <div className="w-10 h-10 mb-3 bg-primary/20 rounded-xl flex items-center justify-center text-primary">
+                    <Icons.Dollar className="w-5 h-5" />
+                  </div>
                   <h3 className="text-lg font-semibold text-white mb-2">Flexible Pricing</h3>
                   <p className="text-gray-400 text-sm">
                     Set any price from ₹1 to ₹1000 per month
                   </p>
                 </div>
                 <div className="bg-slate-800/50 rounded-xl p-6">
-                  <span className="text-3xl mb-3 block">⚡</span>
+                  <div className="w-10 h-10 mb-3 bg-primary/20 rounded-xl flex items-center justify-center text-primary">
+                    <Icons.Zap className="w-5 h-5" />
+                  </div>
                   <h3 className="text-lg font-semibold text-white mb-2">Instant Payouts</h3>
                   <p className="text-gray-400 text-sm">
                     Withdraw your earnings anytime, instantly
                   </p>
                 </div>
                 <div className="bg-slate-800/50 rounded-xl p-6">
-                  <span className="text-3xl mb-3 block">📊</span>
-                  <h3 className="text-lg font-semibold text-white mb-2">Live Analytics</h3>
+                  <div className="w-10 h-10 mb-3 bg-primary/20 rounded-xl flex items-center justify-center text-primary">
+                    <Icons.TrendingUp className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-2">Track Everything</h3>
                   <p className="text-gray-400 text-sm">
                     Track subscribers and earnings in real-time
                   </p>
                 </div>
                 <div className="bg-slate-800/50 rounded-xl p-6">
-                  <span className="text-3xl mb-3 block">🔒</span>
+                  <div className="w-10 h-10 mb-3 bg-primary/20 rounded-xl flex items-center justify-center text-primary">
+                    <Icons.Lock className="w-5 h-5" />
+                  </div>
                   <h3 className="text-lg font-semibold text-white mb-2">Fully Onchain</h3>
                   <p className="text-gray-400 text-sm">
                     Transparent, secure, and censorship-resistant
@@ -310,7 +320,7 @@ export default function CreatorPage() {
 
   // Creator dashboard
   return (
-    <div className="min-h-[calc(100vh-64px)] py-12 px-4 bg-background">
+    <div className="min-h-[calc(100vh-64px)] py-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -319,8 +329,8 @@ export default function CreatorPage() {
           className="mb-12"
         >
           <div className="flex items-center justify-between mb-2">
-            <h1 className="text-4xl md:text-5xl font-bold text-secondary">
-              Creator <span className="gradient-text">Dashboard</span>
+            <h1 className="text-4xl md:text-5xl font-bold text-white">
+              Creator <span className="text-primary">Dashboard</span>
             </h1>
             <div className="flex gap-3">
               <button
@@ -343,7 +353,7 @@ export default function CreatorPage() {
               </button>
             </div>
           </div>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-white/70">
             Manage your subscription plan and track earnings.
           </p>
         </motion.div>
@@ -353,25 +363,25 @@ export default function CreatorPage() {
           <StatCard
             title="Subscribers"
             value={plan?.subscriberCount?.toString() || '0'}
-            icon={<span className="text-2xl">👥</span>}
+            icon={<Icons.Users className="w-6 h-6" />}
             color="purple"
           />
           <StatCard
             title="Monthly Revenue"
             value={`${plan ? formatEther(plan.pricePerMonth * plan.subscriberCount) : '0'} ETH`}
-            icon={<span className="text-2xl">💰</span>}
+            icon={<Icons.TrendingUp className="w-6 h-6" />}
             color="blue"
           />
           <StatCard
             title="Available to Withdraw"
             value={`${plan ? formatEther(plan.totalEarned) : '0'} ETH`}
-            icon={<span className="text-2xl">💵</span>}
+            icon={<Icons.Dollar className="w-6 h-6" />}
             color="green"
           />
           <StatCard
             title="Plan Status"
             value={plan?.isActive ? 'Active' : 'Inactive'}
-            icon={<span className="text-2xl">📊</span>}
+            icon={<Icons.Activity className="w-6 h-6" />}
             color="pink"
           />
         </div>

@@ -7,6 +7,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { motion } from 'framer-motion';
 import { useNavigation } from '@/lib/navigation';
 import { useAuthStore } from '@/lib/store';
+import { Icons } from '@/lib/icons';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -28,7 +29,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+    <nav className="sticky top-0 z-50 bg-black/40 backdrop-blur-xl border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -45,7 +46,7 @@ export default function Navbar() {
                 height={32}
                 className="w-8 h-8 object-contain"
               />
-              <span className="text-xl font-bold gradient-text">TinySubs</span>
+              <span className="text-xl font-bold text-white">TinySubs</span>
             </motion.div>
           </button>
 
@@ -60,8 +61,8 @@ export default function Navbar() {
                   pathname === link.href
                     ? 'bg-primary text-white'
                     : link.requireAuth && !isWalletConnected
-                    ? 'text-gray-400 cursor-not-allowed'
-                    : 'text-gray-600 hover:text-primary hover:bg-gray-50'
+                    ? 'text-white/40 cursor-not-allowed'
+                    : 'text-white/80 hover:text-white hover:bg-white/10'
                 }`}
               >
                 {link.label}
@@ -69,7 +70,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Connect Wallet Button */}
+          {/* Connect Wallet */}
           <div className="flex items-center">
             <ConnectButton
               chainStatus="icon"
@@ -93,8 +94,8 @@ export default function Navbar() {
                 pathname === link.href
                   ? 'bg-primary text-white'
                   : link.requireAuth && !isWalletConnected
-                  ? 'text-gray-400'
-                  : 'text-gray-600 hover:text-primary hover:bg-gray-50'
+                  ? 'text-white/40'
+                  : 'text-white/80 hover:text-white hover:bg-white/10'
               }`}
             >
               {link.label}
