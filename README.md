@@ -1,18 +1,19 @@
-# 🎯 TinySubs
+# TinySubs
 
-**Frictionless Onchain Micro-Subscriptions for Everything**
+**Frictionless Onchain Micro-Subscriptions for Creators**
 
-TinySubs is a decentralized micro-subscription platform that enables creators to charge extremely small recurring payments (₹1–₹5 / $0.01–$0.05) using smart-contract-based streaming. Built on Base/Polygon testnet.
+TinySubs is a decentralized micro-subscription platform that enables creators to charge extremely small recurring payments ($0.01–$0.05 monthly) using smart-contract automation. Built on Base testnet with production-ready architecture.
 
-## ✨ Features
+## Features
 
-- 🔐 **Fully Onchain**: All subscription logic handled by smart contracts
-- 💸 **Micro Payments**: Support for tiny recurring payments
-- 🎨 **Beautiful UI**: Modern, animated interface built with Next.js
-- 👛 **Easy Wallet Connection**: Powered by RainbowKit
-- 📊 **Creator Analytics**: Real-time dashboard for creators
-- 🔄 **Cancel Anytime**: Users have full control over their subscriptions
-- 💰 **Instant Withdrawals**: Creators can withdraw earnings anytime
+- **Fully Onchain**: All subscription logic handled by smart contracts
+- **Micro Payments**: Support for tiny recurring payments starting at $0.01
+- **Modern UI**: Clean, responsive interface with professional design
+- **Easy Wallet Connection**: Seamless integration with RainbowKit
+- **Creator Analytics**: Real-time dashboard with earnings tracking
+- **Cancel Anytime**: Users maintain full control over subscriptions
+- **Instant Withdrawals**: Creators can withdraw earnings on-demand
+- **Auth Persistence**: Wallet state syncs across sessions with localStorage
 
 ## 🛠️ Tech Stack
 
