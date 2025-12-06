@@ -1,19 +1,46 @@
 # TinySubs
 
-**Frictionless Onchain Micro-Subscriptions for Creators**
+**Onchain Micro-Subscriptions Built on Base**
 
-TinySubs is a decentralized micro-subscription platform that enables creators to charge extremely small recurring payments ($0.01–$0.05 monthly) using smart-contract automation. Built on Base testnet with production-ready architecture.
+TinySubs enables creators to launch subscription plans starting at $0.01/month through fully automated smart contracts on Base. Unlike traditional platforms charging 10-30% fees, we take only 2.5% and give creators instant access to their earnings.
 
-## Features
+## 🎯 Problem Statement
 
-- **Fully Onchain**: All subscription logic handled by smart contracts
-- **Micro Payments**: Support for tiny recurring payments starting at $0.01
-- **Modern UI**: Clean, responsive interface with professional design
-- **Easy Wallet Connection**: Seamless integration with RainbowKit
-- **Creator Analytics**: Real-time dashboard with earnings tracking
-- **Cancel Anytime**: Users maintain full control over subscriptions
-- **Instant Withdrawals**: Creators can withdraw earnings on-demand
-- **Auth Persistence**: Wallet state syncs across sessions with localStorage
+Current subscription platforms (Patreon, Substack, OnlyFans) have critical flaws:
+- **High Fees**: 10-30% platform cuts + payment processing fees
+- **Minimum Pricing**: Can't charge less than $5-10/month, limiting accessibility
+- **Delayed Payouts**: Wait weeks for withdrawals
+- **Platform Risk**: Account bans, policy changes, payment blocks
+
+## 💡 Our Solution
+
+Smart contract-powered subscriptions with:
+- **2.5% Platform Fee** - Industry-low, transparent onchain
+- **Micro-Pricing** - Start at $0.01/month, perfect for newsletters, APIs, content
+- **Instant Withdrawals** - Access earnings anytime, no waiting periods
+- **True Ownership** - Censorship-resistant, no platform lock-in
+- **Base Network** - Low gas fees, fast transactions, Ethereum security
+
+## ✨ Key Features
+
+### For Creators
+- **Launch in Minutes**: Connect wallet → Set price → Share link
+- **Flexible Pricing**: Any price from $0.01 upwards per month
+- **Real-Time Dashboard**: Track subscribers, revenue, and growth
+- **Instant Withdrawals**: Access earnings anytime, no KYC delays
+- **98% Revenue Share**: Keep 97.5% after the 2.5% platform fee
+
+### For Subscribers
+- **Micro-Pricing**: Support creators for pennies per month
+- **Cancel Anytime**: No lock-ins, full control over subscriptions
+- **Transparent Onchain**: All transactions verifiable on Base
+- **Secure Payments**: Non-custodial, wallet-to-wallet transfers
+
+### Technical
+- **Smart Contract Automation**: Subscription logic handled by Solidity contracts
+- **Gas Optimized**: Efficient contract design minimizes transaction costs
+- **Base Network**: Built on Base L2 for low fees and fast finality
+- **Production Ready**: Full test coverage, security-focused architecture
 
 ## 🛠️ Tech Stack
 
@@ -30,12 +57,49 @@ TinySubs is a decentralized micro-subscription platform that enables creators to
 - Tailwind CSS
 - Framer Motion
 
+## 🏗️ Architecture
+
+```
+┌─────────────┐         ┌──────────────┐         ┌─────────────┐
+│   Creator   │────────▶│   Frontend   │────────▶│    Base     │
+│   Browser   │         │  (Next.js)   │         │  Network    │
+└─────────────┘         └──────────────┘         └─────────────┘
+                              │                         │
+                              │                         ▼
+                         ┌────▼─────┐          ┌──────────────┐
+                         │ RainbowKit│          │  TinySubs    │
+                         │   Wagmi   │          │   Contract   │
+                         └───────────┘          └──────────────┘
+                                                        │
+                         ┌──────────────────────────────┘
+                         │
+                    ┌────▼─────┐
+                    │Subscriber│
+                    │ Browser  │
+                    └──────────┘
+```
+
+**Flow**:
+1. Creator registers plan via frontend → Contract stores plan details
+2. Subscriber browses creators → Frontend reads from contract
+3. Subscriber pays → ETH sent to contract (2.5% fee deducted)
+4. Creator withdraws → Contract sends ETH minus platform fee
+
+## 💼 Use Cases
+
+1. **Newsletter Writers**: Charge $0.02/month for 5,000 subscribers = $100/month
+2. **API Providers**: $0.05/month per API key for indie developers  
+3. **Content Creators**: Micro-tiers ($0.01, $0.05, $0.10) for different access levels
+4. **Community Access**: $0.03/month for Discord/Telegram group entry
+5. **Research Papers**: $0.02/month for academic content access
+
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 18+
 - npm or yarn
 - MetaMask or compatible wallet
+- Base Testnet ETH ([faucet](https://www.coinbase.com/faucets/base-ethereum-goerli-faucet))
 
 ### Installation
 
@@ -48,6 +112,18 @@ cd TinySubs
 2. Install dependencies:
 ```bash
 npm install
+```
+
+3. Set up environment variables:
+```bash
+cp .env.example .env
+```
+
+Add your credentials:
+```
+NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_project_id
+NEXT_PUBLIC_CONTRACT_ADDRESS=deployed_contract_address
+PRIVATE_KEY=your_wallet_private_key
 ```
 
 3. Set up environment variables:

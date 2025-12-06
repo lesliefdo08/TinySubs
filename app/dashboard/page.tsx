@@ -9,6 +9,7 @@ import SubscriptionCard from '@/components/SubscriptionCard';
 import StatCard from '@/components/StatCard';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import EmptyState from '@/components/EmptyState';
+import { DashboardSkeleton } from '@/components/SkeletonLoader';
 import { TINYSUBS_ABI, CONTRACT_ADDRESS } from '@/lib/contract';
 import { Icons } from '@/lib/icons';
 import { useNavigation } from '@/lib/navigation';
@@ -39,11 +40,16 @@ export default function DashboardPage() {
   const { navigateToDiscover } = useNavigation();
   const [activeSubscriptions, setActiveSubscriptions] = useState<any[]>([]);
 
-  // Fetch all creators to check subscriptions
-  const { data: allCreators } = useReadContract({
+  // Fetch all creators to check subscriptions with caching
+  const { data: allCreators, isLoading: isLoadingCreators } = useReadContract({
     address: CONTRACT_ADDRESS,
     abi: TINYSUBS_ABI,
     functionName: 'getAllCreators',
+    query: {
+      enabled: !!address,
+      staleTime: 60000,
+      gcTime: 300000,
+    },
   });
 
   // Contract write functions
@@ -120,7 +126,7 @@ export default function DashboardPage() {
     }
   };
 
-  // Show loading state while auth is syncing
+  // Show loading state while auth is syncing or data loading
   if (isLoading || !isConnected) {
     return (
       <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 bg-background">
@@ -135,6 +141,11 @@ export default function DashboardPage() {
         )}
       </div>
     );
+  }
+
+  // Show skeleton while loading creators
+  if (isLoadingCreators) {
+    return <DashboardSkeleton />;
   }
 
   const totalSpent = activeSubscriptions.reduce(

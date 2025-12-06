@@ -8,14 +8,20 @@ import { Toaster } from 'react-hot-toast'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'TinySubs - Frictionless Onchain Micro-Subscriptions',
-  description: 'Decentralized micro-subscription platform for creators. Charge tiny recurring payments using blockchain technology.',
-  keywords: 'crypto, subscriptions, blockchain, web3, micro-payments, creators',
-  authors: [{ name: 'TinySubs' }],
+  title: 'TinySubs - Onchain Micro-Subscriptions for Creators',
+  description: 'Launch subscription plans starting at $0.01/month. Built on Base with smart contracts. 2.5% platform fee, instant withdrawals.',
+  keywords: 'base, blockchain subscriptions, web3 creator economy, micro-payments, onchain, smart contracts, decentralized subscriptions',
+  authors: [{ name: 'Leslie Fernando', url: 'https://github.com/lesliefdo08' }],
   openGraph: {
-    title: 'TinySubs',
-    description: 'Frictionless Onchain Micro-Subscriptions for Everything',
+    title: 'TinySubs - Onchain Micro-Subscriptions',
+    description: 'Launch subscription plans starting at $0.01/month on Base blockchain',
     type: 'website',
+    siteName: 'TinySubs',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'TinySubs - Onchain Micro-Subscriptions',
+    description: 'Launch subscription plans starting at $0.01/month on Base blockchain',
   },
 }
 

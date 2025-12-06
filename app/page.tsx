@@ -98,7 +98,7 @@ export default function Home() {
 
               {/* Subheading */}
               <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-xl">
-                Enable micro-subscriptions for your content. Built for creators who want fair revenue without platform fees eating their earnings.
+                Launch subscription plans with smart contracts on Base. Set any price, keep 97.5% of revenue, withdraw anytime. No middlemen.
               </p>
 
               {/* CTA Buttons */}
@@ -137,19 +137,19 @@ export default function Home() {
                 )}
               </div>
 
-              {/* Quick Stats */}
+              {/* Key Metrics */}
               <div className="flex items-center gap-8 pt-6 text-sm">
                 <div>
-                  <p className="text-2xl font-bold text-secondary">1.2K+</p>
-                  <p className="text-gray-500">Active Creators</p>
+                  <p className="text-2xl font-bold text-secondary">2.5%</p>
+                  <p className="text-gray-500">Platform Fee</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-secondary">$15K+</p>
-                  <p className="text-gray-500">Paid Out</p>
+                  <p className="text-2xl font-bold text-secondary">$0.01</p>
+                  <p className="text-gray-500">Minimum Price</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-secondary">98%</p>
-                  <p className="text-gray-500">To Creators</p>
+                  <p className="text-2xl font-bold text-secondary">Instant</p>
+                  <p className="text-gray-500">Withdrawals</p>
                 </div>
               </div>
             </motion.div>
@@ -306,18 +306,18 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-100 text-green-700 rounded-full mb-6 text-sm font-semibold">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-primary rounded-full mb-6 text-sm font-semibold">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" />
+                  <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
                 </svg>
-                Case Study
+                Real-World Example
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-6">
-                "I charged $0.03/month for my newsletter. Got 2,000 subscribers."
+                The Micro-Subscription Advantage
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                Traditional platforms require minimum pricing of $5-10/month. With TinySubs, 
-                indie creators can charge micro-amounts and still build sustainable income.
+                Traditional platforms force $5-10/month minimums. TinySubs enables creators to charge 
+                $0.01-$0.10, dramatically lowering the barrier for subscribers while maintaining sustainable income.
               </p>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
@@ -350,7 +350,7 @@ export default function Home() {
                   </div>
                   <div>
                     <p className="font-semibold text-secondary">Sustainable income</p>
-                    <p className="text-gray-600 text-sm">2,000 × $0.03 = $60/month profit</p>
+                    <p className="text-gray-600 text-sm">Example: 2,000 subs × $0.03 × 97.5% = $58.50/month</p>
                   </div>
                 </div>
               </div>
@@ -379,7 +379,7 @@ export default function Home() {
             Ready to Start Earning?
           </h2>
           <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
-            Join 1,200+ creators already earning with micro-subscriptions
+            Launch your subscription plan in minutes. No platform fees until you earn.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.button

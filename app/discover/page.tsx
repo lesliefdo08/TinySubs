@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import CreatorCard from '@/components/CreatorCard';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import EmptyState from '@/components/EmptyState';
+import { CreatorCardSkeleton } from '@/components/SkeletonLoader';
 import { TINYSUBS_ABI, CONTRACT_ADDRESS } from '@/lib/contract';
 import { Icons } from '@/lib/icons';
 import { useNavigation } from '@/lib/navigation';
@@ -30,11 +31,15 @@ export default function DiscoverPage() {
   const [creators, setCreators] = useState<string[]>([]);
   const [userSubscriptions, setUserSubscriptions] = useState<Set<string>>(new Set());
 
-  // Fetch all creators
+  // Fetch all creators with caching
   const { data: allCreators, isLoading: isLoadingCreators } = useReadContract({
     address: CONTRACT_ADDRESS,
     abi: TINYSUBS_ABI,
     functionName: 'getAllCreators',
+    query: {
+      staleTime: 60000, // Cache for 1 minute
+      gcTime: 300000, // Keep in cache for 5 minutes
+    },
   });
 
   // Subscribe function
@@ -100,10 +105,25 @@ export default function DiscoverPage() {
     );
   }
 
+  // Show skeleton loaders while loading for better UX
   if (isLoadingCreators) {
     return (
-      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center">
-        <LoadingSpinner size="lg" text="Loading creators..." />
+      <div className="min-h-[calc(100vh-64px)] py-12 px-4 bg-background">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-secondary mb-4">
+              Discover <span className="text-primary">Creators</span>
+            </h1>
+            <p className="text-xl text-gray-600">
+              Browse and subscribe to creators on the platform
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <CreatorCardSkeleton />
+            <CreatorCardSkeleton />
+            <CreatorCardSkeleton />
+          </div>
+        </div>
       </div>
     );
   }

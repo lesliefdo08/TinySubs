@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import StatCard from '@/components/StatCard';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import EmptyState from '@/components/EmptyState';
+import { DashboardSkeleton } from '@/components/SkeletonLoader';
 import { TINYSUBS_ABI, CONTRACT_ADDRESS } from '@/lib/contract';
 import { Icons } from '@/lib/icons';
 import { useAuth } from '@/lib/useAuth';
@@ -32,28 +33,43 @@ export default function CreatorPage() {
     pricePerMonth: '',
   });
 
-  // Check if user is a creator
+  // Check if user is a creator with caching
   const { data: isCreator, isLoading: checkingCreator } = useReadContract({
     address: CONTRACT_ADDRESS,
     abi: TINYSUBS_ABI,
     functionName: 'isCreator',
-    args: address ? [address] : undefined,
+    args: address ? [address as `0x${string}`] : undefined,
+    query: {
+      enabled: !!address,
+      staleTime: 60000,
+      gcTime: 300000,
+    },
   });
 
-  // Get creator plan data
+  // Get creator plan data with caching
   const { data: creatorPlan, refetch: refetchPlan } = useReadContract({
     address: CONTRACT_ADDRESS,
     abi: TINYSUBS_ABI,
     functionName: 'getCreatorPlan',
-    args: address ? [address] : undefined,
+    args: address ? [address as `0x${string}`] : undefined,
+    query: {
+      enabled: !!address && !!isCreator,
+      staleTime: 30000,
+      gcTime: 300000,
+    },
   });
 
-  // Get subscribers
+  // Get subscribers with caching
   const { data: subscribers } = useReadContract({
     address: CONTRACT_ADDRESS,
     abi: TINYSUBS_ABI,
     functionName: 'getCreatorSubscribers',
-    args: address ? [address] : undefined,
+    args: address ? [address as `0x${string}`] : undefined,
+    query: {
+      enabled: !!address && !!isCreator,
+      staleTime: 30000,
+      gcTime: 300000,
+    },
   });
 
   // Contract write functions
@@ -150,11 +166,7 @@ export default function CreatorPage() {
   }
 
   if (checkingCreator) {
-    return (
-      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center">
-        <LoadingSpinner size="lg" text="Loading creator data..." />
-      </div>
-    );
+    return <DashboardSkeleton />;
   }
 
   const plan = creatorPlan as CreatorPlan | undefined;
@@ -182,50 +194,52 @@ export default function CreatorPage() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700"
+              className="bg-white rounded-2xl p-8 border border-gray-200 shadow-lg"
             >
               <div className="text-center mb-8">
-                <div className="w-16 h-16 mx-auto mb-4 text-purple-400">
+                <div className="w-16 h-16 mx-auto mb-4 text-primary">
                   <Icons.Palette />
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-2">Ready to Start?</h2>
-                <p className="text-gray-400">
+                <h2 className="text-2xl font-bold text-secondary mb-2">Ready to Start?</h2>
+                <p className="text-gray-600">
                   Register your subscription plan and start building your community
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-slate-800/50 rounded-xl p-6">
-                  <div className="w-8 h-8 mb-3 text-green-400">
+                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                  <div className="w-8 h-8 mb-3 text-green-600">
                     <Icons.Dollar />
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-2">Flexible Pricing</h3>
-                  <p className="text-gray-400 text-sm">
-                    Set any price from ₹1 to ₹1000 per month
+                  <h3 className="text-lg font-semibold text-secondary mb-2">Flexible Pricing</h3>
+                  <p className="text-gray-600 text-sm">
+                    Set any price from $0.01 upwards per month
                   </p>
                 </div>
-                <div className="bg-slate-800/50 rounded-xl p-6">
-                  <div className="w-8 h-8 mb-3 text-yellow-400">
+                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                  <div className="w-8 h-8 mb-3 text-yellow-600">
                     <Icons.Zap />
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-2">Instant Payouts</h3>
-                  <p className="text-gray-400 text-sm">
+                  <h3 className="text-lg font-semibold text-secondary mb-2">Instant Payouts</h3>
+                  <p className="text-gray-600 text-sm">
                     Withdraw your earnings anytime, instantly
                   </p>
                 </div>
-                <div className="bg-slate-800/50 rounded-xl p-6">
-                  <div className="w-8 h-8 mb-3 text-blue-400">
+                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                  <div className="w-8 h-8 mb-3 text-blue-600">
                     <Icons.Activity />
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-2">Live Analytics</h3>
-                  <p className="text-gray-400 text-sm">
+                  <h3 className="text-lg font-semibold text-secondary mb-2">Live Analytics</h3>
+                  <p className="text-gray-600 text-sm">
                     Track subscribers and earnings in real-time
                   </p>
                 </div>
-                <div className="bg-slate-800/50 rounded-xl p-6">
-                  <span className="text-3xl mb-3 block">🔒</span>
-                  <h3 className="text-lg font-semibold text-white mb-2">Fully Onchain</h3>
-                  <p className="text-gray-400 text-sm">
+                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                  <div className="w-8 h-8 mb-3 text-primary">
+                    <Icons.Lock />
+                  </div>
+                  <h3 className="text-lg font-semibold text-secondary mb-2">Fully Onchain</h3>
+                  <p className="text-gray-600 text-sm">
                     Transparent, secure, and censorship-resistant
                   </p>
                 </div>
@@ -233,7 +247,7 @@ export default function CreatorPage() {
 
               <button
                 onClick={() => setShowRegisterForm(true)}
-                className="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-bold text-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-200"
+                className="w-full py-4 bg-primary text-white rounded-xl font-bold text-lg hover:bg-primary/90 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
                 Register as Creator
               </button>

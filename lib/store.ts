@@ -54,9 +54,7 @@ export const useAuthStore = create<AuthState>()(
 
       setWalletConnected: (connected) => {
         set({ isWalletConnected: connected });
-        if (!connected) {
-          get().clearAuth();
-        }
+        // Don't clear auth on disconnect - let user reconnect
       },
 
       setAuthenticated: (authenticated) => {
@@ -98,9 +96,19 @@ export const useAuthStore = create<AuthState>()(
 
       hydrateAuth: () => {
         const state = get();
-        // Check if session is still valid (24 hours)
-        if (state.lastConnected && Date.now() - state.lastConnected > 24 * 60 * 60 * 1000) {
+        const now = Date.now();
+        const sevenDays = 7 * 24 * 60 * 60 * 1000; // Extended to 7 days
+
+        // Check if session is still valid
+        if (state.lastConnected && now - state.lastConnected > sevenDays) {
+          // Session expired after 7 days, clear auth
           get().clearAuth();
+        } else if (state.walletAddress) {
+          // Session valid, restore auth and connection
+          set({
+            isAuthenticated: true,
+            isWalletConnected: true,
+          });
         }
       },
     }),
