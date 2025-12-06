@@ -37,8 +37,11 @@ export default function DiscoverPage() {
     abi: TINYSUBS_ABI,
     functionName: 'getAllCreators',
     query: {
-      staleTime: 60000, // Cache for 1 minute
-      gcTime: 300000, // Keep in cache for 5 minutes
+      enabled: isConnected, // Only fetch when connected
+      staleTime: 60000,
+      gcTime: 300000,
+      retry: false, // Fail fast
+      retryDelay: 0,
     },
   });
 
@@ -93,56 +96,7 @@ export default function DiscoverPage() {
     }
   };
 
-  if (!isConnected) {
-    return (
-      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 bg-background">
-        <EmptyState
-          icon={<div className="text-primary w-16 h-16"><Icons.Lock /></div>}
-          title="Connect Your Wallet"
-          description="Connect your wallet to discover and subscribe to creators."
-        />
-      </div>
-    );
-  }
-
-  // Show skeleton loaders while loading for better UX
-  if (isLoadingCreators) {
-    return (
-      <div className="min-h-[calc(100vh-64px)] py-12 px-4 bg-background">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-secondary mb-4">
-              Discover <span className="text-primary">Creators</span>
-            </h1>
-            <p className="text-xl text-gray-600">
-              Browse and subscribe to creators on the platform
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <CreatorCardSkeleton />
-            <CreatorCardSkeleton />
-            <CreatorCardSkeleton />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!creators || creators.length === 0) {
-    return (
-      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 bg-background">
-        <EmptyState
-          icon={<div className="text-primary w-16 h-16"><Icons.Palette /></div>}
-          title="No Creators Yet"
-          description="Be the first to create a subscription plan and start earning."
-          action={{
-            label: 'Become a Creator',
-            onClick: navigateToCreator,
-          }}
-        />
-      </div>
-    );
-  }
+  // NO BLOCKING - Page renders instantly!
 
   return (
     <div className="min-h-[calc(100vh-64px)] py-12 px-4 bg-background">
@@ -159,24 +113,54 @@ export default function DiscoverPage() {
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Support your favorite creators with tiny recurring subscriptions
           </p>
-          <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full">
-            <span className="text-purple-400 font-semibold">{creators.length} Active Creators</span>
-          </div>
+          {creators.length > 0 && (
+            <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full">
+              <span className="text-purple-400 font-semibold">{creators.length} Active Creators</span>
+            </div>
+          )}
         </motion.div>
 
-        {/* Creators Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {creators.map((creatorAddress, index) => (
-            <CreatorCardWithData
-              key={creatorAddress}
-              creatorAddress={creatorAddress}
-              onSubscribe={handleSubscribe}
-              isSubscribed={userSubscriptions.has(creatorAddress)}
-              isLoading={isPending || isConfirming}
-              index={index}
+        {/* Content */}
+        {!isConnected ? (
+          <div className="flex items-center justify-center py-12">
+            <EmptyState
+              icon={<div className="text-primary w-12 h-12"><Icons.Lock /></div>}
+              title="Connect Your Wallet"
+              description="Connect your wallet to discover and subscribe to creators."
             />
-          ))}
-        </div>
+          </div>
+        ) : isLoadingCreators ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <CreatorCardSkeleton />
+            <CreatorCardSkeleton />
+            <CreatorCardSkeleton />
+          </div>
+        ) : !creators || creators.length === 0 ? (
+          <div className="flex items-center justify-center py-12">
+            <EmptyState
+              icon={<div className="text-primary w-12 h-12"><Icons.Palette /></div>}
+              title="No Creators Yet"
+              description="Be the first to create a subscription plan and start earning."
+              action={{
+                label: 'Become a Creator',
+                onClick: navigateToCreator,
+              }}
+            />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {creators.map((creatorAddress, index) => (
+              <CreatorCardWithData
+                key={creatorAddress}
+                creatorAddress={creatorAddress}
+                onSubscribe={handleSubscribe}
+                isSubscribed={userSubscriptions.has(creatorAddress)}
+                isLoading={isPending || isConfirming}
+                index={index}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

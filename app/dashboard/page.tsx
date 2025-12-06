@@ -36,7 +36,7 @@ interface CreatorPlan {
 }
 
 export default function DashboardPage() {
-  const { address, isConnected, isLoading } = useAuth();
+  const { address, isConnected } = useAuth();
   const { navigateToDiscover } = useNavigation();
   const [activeSubscriptions, setActiveSubscriptions] = useState<any[]>([]);
 
@@ -46,9 +46,10 @@ export default function DashboardPage() {
     abi: TINYSUBS_ABI,
     functionName: 'getAllCreators',
     query: {
-      enabled: !!address,
+      enabled: isConnected && !!address,
       staleTime: 60000,
       gcTime: 300000,
+      retry: false, // Fail fast if contract not deployed
     },
   });
 
@@ -126,19 +127,19 @@ export default function DashboardPage() {
     }
   };
 
-  // Show loading state while auth is syncing or data loading
-  if (isLoading || !isConnected) {
+  // Determine rendering state
+  const showWalletPrompt = !isConnected;
+  const showLoading = isConnected && isLoadingCreators;
+  const showContent = isConnected && !isLoadingCreators;
+
+  if (showWalletPrompt) {
     return (
       <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 bg-background">
-        {isLoading ? (
-          <LoadingSpinner size="lg" text="Loading..." />
-        ) : (
-          <EmptyState
-            icon={<div className="text-primary w-16 h-16"><Icons.Lock /></div>}
-            title="Connect Your Wallet"
-            description="Connect your wallet to view and manage your subscriptions."
-          />
-        )}
+        <EmptyState
+          icon={<div className="text-primary w-16 h-16"><Icons.Lock /></div>}
+          title="Connect Your Wallet"
+          description="Connect your wallet to view and manage your subscriptions."
+        />
       </div>
     );
   }

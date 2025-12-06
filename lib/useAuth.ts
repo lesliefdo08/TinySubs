@@ -25,16 +25,12 @@ export function useAuth() {
     return address || walletAddress;
   }, [address, walletAddress]);
 
-  // Don't show loading if we have stored data
-  const isLoading = useMemo(() => {
-    // Only show loading if no stored data and wagmi hasn't loaded yet
-    return !walletAddress && wagmiConnected === undefined;
-  }, [walletAddress, wagmiConnected]);
+  // NEVER block page rendering with isLoading
+  // Pages should render immediately and show appropriate state
 
   return {
     address: effectiveAddress,
     isConnected,
     isAuthenticated,
-    isLoading,
   };
 }

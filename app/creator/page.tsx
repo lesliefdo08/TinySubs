@@ -25,7 +25,7 @@ interface CreatorPlan {
 }
 
 export default function CreatorPage() {
-  const { address, isConnected, isLoading } = useAuth();
+  const { address, isConnected } = useAuth();
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [formData, setFormData] = useState({
     planName: '',
@@ -43,6 +43,8 @@ export default function CreatorPage() {
       enabled: !!address,
       staleTime: 60000,
       gcTime: 300000,
+      retry: false, // Don't retry failed requests
+      retryDelay: 0,
     },
   });
 
@@ -53,9 +55,10 @@ export default function CreatorPage() {
     functionName: 'getCreatorPlan',
     args: address ? [address as `0x${string}`] : undefined,
     query: {
-      enabled: !!address && !!isCreator,
+      enabled: !!address && isCreator === true, // Only fetch if user is creator
       staleTime: 30000,
       gcTime: 300000,
+      retry: false,
     },
   });
 
@@ -66,9 +69,10 @@ export default function CreatorPage() {
     functionName: 'getCreatorSubscribers',
     args: address ? [address as `0x${string}`] : undefined,
     query: {
-      enabled: !!address && !!isCreator,
+      enabled: !!address && isCreator === true,
       staleTime: 30000,
       gcTime: 300000,
+      retry: false,
     },
   });
 
@@ -148,32 +152,41 @@ export default function CreatorPage() {
     }
   };
 
-  // Show loading state while auth is syncing
-  if (isLoading || !isConnected) {
-    return (
-      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 bg-background">
-        {isLoading ? (
-          <LoadingSpinner size="lg" text="Loading..." />
-        ) : (
-          <EmptyState
-            icon={<div className="text-primary"><Icons.Lock /></div>}
-            title="Connect Your Wallet"
-            description="Connect your wallet to access the creator dashboard and start earning."
-          />
-        )}
-      </div>
-    );
-  }
-
-  if (checkingCreator) {
-    return <DashboardSkeleton />;
-  }
+  // Determine what to show - NO blocking returns!
+  const showWalletPrompt = !isConnected;
+  const showLoading = isConnected && checkingCreator;
+  const showRegistration = isConnected && !checkingCreator && !isCreator;
+  const showDashboard = isConnected && !checkingCreator && isCreator;
 
   const plan = creatorPlan as CreatorPlan | undefined;
   const subscriberList = (subscribers as string[]) || [];
 
-  // If not a creator, show registration form
-  if (!isCreator) {
+  // Wallet prompt
+  if (showWalletPrompt) {
+    return (
+      <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 bg-background">
+        <EmptyState
+          icon={<div className="text-primary"><Icons.Lock /></div>}
+          title="Connect Your Wallet"
+          description="Connect your wallet to access the creator dashboard and start earning."
+        />
+      </div>
+    );
+  }
+
+  // Loading state
+  if (showLoading) {
+    return (
+      <div className="min-h-[calc(100vh-64px)] py-12 px-4 bg-background">
+        <div className="max-w-4xl mx-auto">
+          <DashboardSkeleton />
+        </div>
+      </div>
+    );
+  }
+
+  // Registration form
+  if (showRegistration) {
     return (
       <div className="min-h-[calc(100vh-64px)] py-12 px-4 bg-background">
         <div className="max-w-4xl mx-auto">
@@ -333,7 +346,7 @@ export default function CreatorPage() {
     );
   }
 
-  // Creator dashboard
+  // Creator dashboard (showDashboard === true)
   return (
     <div className="min-h-[calc(100vh-64px)] py-12 px-4 bg-background">
       <div className="max-w-7xl mx-auto">
