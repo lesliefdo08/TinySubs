@@ -10,6 +10,7 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import EmptyState from '@/components/EmptyState';
 import { TINYSUBS_ABI, CONTRACT_ADDRESS } from '@/lib/contract';
 import { Icons } from '@/lib/icons';
+import { useNavigation } from '@/lib/navigation';
 
 interface CreatorPlan {
   planName: string;
@@ -24,6 +25,7 @@ interface CreatorPlan {
 
 export default function DiscoverPage() {
   const { address, isConnected } = useAccount();
+  const { navigateToCreator } = useNavigation();
   const [creators, setCreators] = useState<string[]>([]);
   const [userSubscriptions, setUserSubscriptions] = useState<Set<string>>(new Set());
 
@@ -115,7 +117,7 @@ export default function DiscoverPage() {
           description="Be the first to create a subscription plan and start earning."
           action={{
             label: 'Become a Creator',
-            onClick: () => (window.location.href = '/creator'),
+            onClick: navigateToCreator,
           }}
         />
       </div>

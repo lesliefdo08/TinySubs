@@ -11,6 +11,7 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import EmptyState from '@/components/EmptyState';
 import { TINYSUBS_ABI, CONTRACT_ADDRESS } from '@/lib/contract';
 import { Icons } from '@/lib/icons';
+import { useNavigation } from '@/lib/navigation';
 
 interface Subscription {
   creator: string;
@@ -34,6 +35,7 @@ interface CreatorPlan {
 
 export default function DashboardPage() {
   const { address, isConnected } = useAccount();
+  const { navigateToDiscover } = useNavigation();
   const [activeSubscriptions, setActiveSubscriptions] = useState<any[]>([]);
 
   // Fetch all creators to check subscriptions
@@ -178,12 +180,12 @@ export default function DashboardPage() {
         {/* Subscriptions */}
         {activeSubscriptions.length === 0 ? (
           <EmptyState
-            icon={<span className="text-6xl">📦</span>}
+            icon={<div className="text-primary w-16 h-16"><Icons.Activity /></div>}
             title="No Active Subscriptions"
-            description="You haven't subscribed to any creators yet. Start supporting your favorite creators today!"
+            description="You haven't subscribed to any creators yet. Start supporting your favorite creators today."
             action={{
               label: 'Discover Creators',
-              onClick: () => (window.location.href = '/discover'),
+              onClick: navigateToDiscover,
             }}
           />
         ) : (

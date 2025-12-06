@@ -9,9 +9,13 @@ import HowItWorks from '@/components/HowItWorks';
 import DashboardPreview from '@/components/DashboardPreview';
 import WalletSimulator from '@/components/WalletSimulator';
 import { Icons } from '@/lib/icons';
+import { useNavigation } from '@/lib/navigation';
+import { useAuthStore } from '@/lib/store';
 
 export default function Home() {
   const { isConnected } = useAccount();
+  const { navigateToCreator, navigateToDiscover } = useNavigation();
+  const { isWalletConnected } = useAuthStore();
 
   const features = [
     {
@@ -99,26 +103,24 @@ export default function Home() {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                {isConnected ? (
+                {isWalletConnected ? (
                   <>
-                    <Link href="/creator">
-                      <motion.button
-                        whileHover={{ scale: 1.02, y: -2 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="px-8 py-4 bg-primary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-                      >
-                        Start Creating
-                      </motion.button>
-                    </Link>
-                    <Link href="/discover">
-                      <motion.button
-                        whileHover={{ scale: 1.02, y: -2 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="px-8 py-4 bg-white text-secondary border border-gray-200 rounded-xl font-semibold hover:border-primary hover:text-primary transition-all duration-300"
-                      >
-                        Browse Creators
-                      </motion.button>
-                    </Link>
+                    <motion.button
+                      onClick={navigateToCreator}
+                      whileHover={{ scale: 1.02, y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="px-8 py-4 bg-primary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                    >
+                      Start Creating
+                    </motion.button>
+                    <motion.button
+                      onClick={navigateToDiscover}
+                      whileHover={{ scale: 1.02, y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="px-8 py-4 bg-white text-secondary border border-gray-200 rounded-xl font-semibold hover:border-primary hover:text-primary transition-all duration-300"
+                    >
+                      Browse Creators
+                    </motion.button>
                   </>
                 ) : (
                   <motion.div
@@ -380,24 +382,22 @@ export default function Home() {
             Join 1,200+ creators already earning with micro-subscriptions
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href={isConnected ? '/creator' : '/'}>
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-10 py-4 bg-white text-primary rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
-              >
-                {isConnected ? 'Launch Your Plan' : 'Connect Wallet'}
-              </motion.button>
-            </Link>
-            <Link href="/discover">
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white border border-white/20 rounded-xl font-bold text-lg hover:bg-white/20 transition-all duration-300"
-              >
-                Browse Creators
-              </motion.button>
-            </Link>
+            <motion.button
+              onClick={isWalletConnected ? navigateToCreator : () => {}}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-10 py-4 bg-white text-primary rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+            >
+              {isWalletConnected ? 'Launch Your Plan' : 'Connect Wallet'}
+            </motion.button>
+            <motion.button
+              onClick={navigateToDiscover}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white border border-white/20 rounded-xl font-bold text-lg hover:bg-white/20 transition-all duration-300"
+            >
+              Browse Creators
+            </motion.button>
           </div>
         </motion.div>
       </section>
