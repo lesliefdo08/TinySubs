@@ -1,7 +1,7 @@
 {
   "name": "tinysubs",
-  "version": "1.0.0",
-  "description": "Frictionless Onchain Micro-Subscriptions for Everything",
+  "version": "1.0.1",
+  "description": "Frictionless Onchain Micro-Subscriptions for Creators",
   "scripts": {
     "dev": "next dev -p 3002",
     "build": "next build",
