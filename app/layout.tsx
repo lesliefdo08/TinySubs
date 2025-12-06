@@ -12,11 +12,6 @@ export const metadata: Metadata = {
   description: 'Decentralized micro-subscription platform for creators. Charge tiny recurring payments using blockchain technology.',
   keywords: 'crypto, subscriptions, blockchain, web3, micro-payments, creators',
   authors: [{ name: 'TinySubs' }],
-  icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
-  },
   openGraph: {
     title: 'TinySubs',
     description: 'Frictionless Onchain Micro-Subscriptions for Everything',

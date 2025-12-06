@@ -28,7 +28,6 @@ export function useNavigation() {
         // Navigate using Next.js router
         router.push(path);
       } catch (error) {
-        console.error('Navigation error:', error);
         toast.error('Navigation failed. Please try again.');
       }
     },
@@ -64,7 +63,6 @@ export function useNavigation() {
       try {
         router.push(path);
       } catch (error) {
-        console.error('Safe navigation error:', error);
         // Fallback to window.location if router fails
         if (typeof window !== 'undefined') {
           window.location.href = path;

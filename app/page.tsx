@@ -66,7 +66,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="relative pt-16 pb-20 px-4 overflow-hidden">
         <div className="max-w-7xl mx-auto">
@@ -90,14 +90,14 @@ export default function Home() {
               </motion.div>
 
               {/* Headline */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-secondary leading-tight">
                 Onchain Subscriptions
                 <br />
                 <span className="text-primary">Starting at $0.01</span>
               </h1>
 
               {/* Subheading */}
-              <p className="text-lg md:text-xl text-white/70 leading-relaxed max-w-xl">
+              <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-xl">
                 Enable micro-subscriptions for your content. Built for creators who want fair revenue without platform fees eating their earnings.
               </p>
 
@@ -109,7 +109,7 @@ export default function Home() {
                       onClick={navigateToCreator}
                       whileHover={{ scale: 1.02, y: -2 }}
                       whileTap={{ scale: 0.98 }}
-                      className="px-8 py-4 bg-primary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all duration-300"
+                      className="px-8 py-4 bg-primary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                     >
                       Start Creating
                     </motion.button>
@@ -117,7 +117,7 @@ export default function Home() {
                       onClick={navigateToDiscover}
                       whileHover={{ scale: 1.02, y: -2 }}
                       whileTap={{ scale: 0.98 }}
-                      className="px-8 py-4 bg-white/10 text-white border border-white/20 rounded-xl font-semibold hover:border-primary hover:bg-white/20 transition-all duration-300"
+                      className="px-8 py-4 bg-white text-secondary border border-gray-200 rounded-xl font-semibold hover:border-primary hover:text-primary transition-all duration-300"
                     >
                       Browse Creators
                     </motion.button>
@@ -127,9 +127,9 @@ export default function Home() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 }}
-                    className="flex items-center gap-3 px-6 py-3 bg-primary/10 border border-primary/30 rounded-xl text-primary"
+                    className="flex items-center gap-3 px-6 py-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-800"
                   >
-                    <div className="text-primary">
+                    <div className="text-blue-600">
                       <Icons.ArrowRight />
                     </div>
                     <span className="text-sm font-semibold">Connect your wallet above to get started</span>
@@ -140,16 +140,16 @@ export default function Home() {
               {/* Quick Stats */}
               <div className="flex items-center gap-8 pt-6 text-sm">
                 <div>
-                  <p className="text-2xl font-bold text-white">1.2K+</p>
-                  <p className="text-white/60">Active Creators</p>
+                  <p className="text-2xl font-bold text-secondary">1.2K+</p>
+                  <p className="text-gray-500">Active Creators</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-white">$15K+</p>
-                  <p className="text-white/60">Paid Out</p>
+                  <p className="text-2xl font-bold text-secondary">$15K+</p>
+                  <p className="text-gray-500">Paid Out</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-white">98%</p>
-                  <p className="text-white/60">To Creators</p>
+                  <p className="text-2xl font-bold text-secondary">98%</p>
+                  <p className="text-gray-500">To Creators</p>
                 </div>
               </div>
             </motion.div>
@@ -167,7 +167,7 @@ export default function Home() {
       </section>
 
       {/* Why TinySubs Section */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -175,10 +175,10 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-secondary mb-4">
               Why TinySubs?
             </h2>
-            <p className="text-xl text-white/70 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Fair pricing. True ownership. Built for the onchain economy.
             </p>
           </motion.div>
@@ -194,13 +194,13 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -4, scale: 1.01 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 hover:border-primary/30 transition-all duration-250"
+                  className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-250"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center mb-4 text-primary">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 text-primary">
                     <IconComponent />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
-                  <p className="text-white/70 leading-relaxed text-sm">{feature.description}</p>
+                  <h3 className="text-xl font-bold text-secondary mb-2">{feature.title}</h3>
+                  <p className="text-gray-600 leading-relaxed text-sm">{feature.description}</p>
                 </motion.div>
               );
             })}
@@ -209,7 +209,7 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 bg-background">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -217,10 +217,10 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-secondary mb-4">
               How It Works
             </h2>
-            <p className="text-xl text-white/70 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Three steps to start earning onchain
             </p>
           </motion.div>
@@ -230,7 +230,7 @@ export default function Home() {
       </section>
 
       {/* Dashboard Preview Section */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -238,10 +238,10 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-secondary mb-4">
               Your Creator Dashboard
             </h2>
-            <p className="text-xl text-white/70 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Track everything in real-time. No spreadsheets needed.
             </p>
           </motion.div>
