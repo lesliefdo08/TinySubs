@@ -32,6 +32,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
               borderRadius: 'medium',
             })}
             modalSize="compact"
+            locale="en-US"
           >
             <WalletSync />
             {children}
